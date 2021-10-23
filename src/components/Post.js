@@ -43,13 +43,13 @@ export default function Post({ title, username, text, upvotes, date }) {
 								space={4}
 								style={{ padding: 15 }}
 								rounded="5"
-								bg={colors.tertiary["300"]}
+								bg={colors.white}
 							>
 								<HStack justifyContent="space-between">
 									<Text style={{ fontSize: 16 }}>{title}</Text>
 									<Text style={{ fontSize: 10 }}>{username}</Text>
 								</HStack>
-								<Divider />
+								<Divider style={{backgroundColor: colors.gray["400"], height:.5 }} />
 								<Text style={{ width: Dimensions.get("window").width * 0.78 }}>
 									{text}
 								</Text>
@@ -88,26 +88,43 @@ function timeSince(date) {
 	}
 	interval = seconds / 2592000
 	if (interval > 1) {
-		return Math.floor(interval) + " months"
+		let returnString=  Math.floor(interval) + " months"
+		
+		if (Math.floor(interval) === 1) {
+			returnString = returnString.replace('s',"")
+		}
+		return returnString
 	}
 	interval = seconds / 86400
+	
 	if (interval > 1) {
-		return Math.floor(interval) + " days"
+		let returnString = Math.floor(interval) + " days"
+		if (Math.floor(interval) === 1) {
+			returnString = returnString.replace('s',"")
+		}
+		return returnString
 	}
 	interval = seconds / 3600
 	if (interval > 1) {
-		return Math.floor(interval) + " hours"
+		let returnString = Math.floor(interval) + " hours"
+		if (Math.floor(interval) === 1) {
+			returnString = returnString.replace('s',"")
+		}
+		return returnString
 	}
 	interval = seconds / 60
 	if (interval > 1) {
-		return Math.floor(interval) + " minutes"
+		let returnString = Math.floor(interval) + " minutes"
+		if (Math.floor(interval) === 1) {
+			returnString = returnString.replace('s',"")
+		}
+		return returnString
 	}
+
 	return Math.floor(seconds) + " seconds"
 }
 var aDay = 24 * 60 * 60 * 1000
-console.log(timeSince(new Date(Date.now() - aDay)))
-console.log(timeSince(new Date(Date.now() - aDay * 2)))
-console.log(Date.now())
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

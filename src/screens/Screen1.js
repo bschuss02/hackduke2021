@@ -59,7 +59,7 @@ function Screen1({ testingAction }) {
 			text:
 				"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
 			upvotes: 2,
-			date: "10/24/2021",
+			date: 1635010015424,
 		},
 		{
 			title: "title3",
@@ -73,7 +73,7 @@ function Screen1({ testingAction }) {
 	const [mode, setMode] = useState(0)
 	const { colors } = useTheme()
 	return (
-		<SafeAreaView>
+		<SafeAreaView style={{ backgroundColor:colors.primary["500"] }} >
 			<VStack>
 				<HStack justifyContent="center" space={2}>
 					<TouchableOpacity
