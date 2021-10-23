@@ -14,7 +14,10 @@ export default function TabNav() {
 	const { colors } = useTheme()
 
 	return (
-		<Tab.Navigator screenOptions={{ headerShown: false }}>
+		<Tab.Navigator
+			initialRouteName="Screen2"
+			screenOptions={{ headerShown: false }}
+		>
 			<Tab.Screen
 				name="Screen1"
 				component={Screen1}

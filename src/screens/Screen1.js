@@ -29,7 +29,7 @@ function Screen1({ testingAction }) {
 			username: "username1",
 			text: "text1",
 			upvotes: -4,
-			date: "10/23/2021",
+			date: 1635017815494,
 		},
 		{
 			title: "title2",
@@ -37,21 +37,21 @@ function Screen1({ testingAction }) {
 			text:
 				"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
 			upvotes: 2,
-			date: "10/24/2021",
+			date: 1635017815494,
 		},
 		{
 			title: "title3",
 			username: "username3",
 			text: "text3",
 			upvotes: 24,
-			date: "10/21/2021",
+			date: 1635017015494,
 		},
 		{
 			title: "title1",
 			username: "username1",
 			text: "text1",
 			upvotes: -4,
-			date: "10/23/2021",
+			date: 1630007815494,
 		},
 		{
 			title: "title2",
@@ -66,7 +66,7 @@ function Screen1({ testingAction }) {
 			username: "username3",
 			text: "text3",
 			upvotes: 24,
-			date: "10/21/2021",
+			date: 1635000015494,
 		},
 	]
 

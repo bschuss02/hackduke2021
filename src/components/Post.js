@@ -20,7 +20,7 @@ import {
 	Divider,
 } from "native-base"
 
-import { Ionicons } from "@expo/vector-icons"
+import { Ionicons, Fontisto } from "@expo/vector-icons"
 
 export default function Post({ title, username, text, upvotes, date }) {
 	const { colors } = useTheme()
@@ -50,7 +50,7 @@ export default function Post({ title, username, text, upvotes, date }) {
 									<Text style={{ fontSize: 10 }}>{username}</Text>
 								</HStack>
 								<Divider />
-								<Text style={{ width: Dimensions.get("window").width * 0.72 }}>
+								<Text style={{ width: Dimensions.get("window").width * 0.78 }}>
 									{text}
 								</Text>
 							</VStack>
@@ -63,31 +63,51 @@ export default function Post({ title, username, text, upvotes, date }) {
 										textDecorationColor: colors.primary["500"],
 									}}
 								>
-									See More
-								</Text>
-							</TouchableOpacity>
-							<TouchableOpacity>
-								<Text
-									style={{
-										textDecorationLine: "underline",
-										textDecorationColor: colors.primary["500"],
-									}}
-								>
 									Comments
 								</Text>
 							</TouchableOpacity>
+							<Text>{`${timeSince(date)} ago`}</Text>
 						</HStack>
 					</VStack>
-					<VStack alignItems="center">
-						<Text>10/23</Text>
-						<Text>2021</Text>
-					</VStack>
+					{/* <VStack alignItems="center">
+						<Text style={{ width: 42 }}>{date}</Text>
+					</VStack> */}
 				</HStack>
 			</Box>
 		</SafeAreaView>
 	)
 }
 
+function timeSince(date) {
+	var seconds = Math.floor((new Date() - date) / 1000)
+
+	var interval = seconds / 31536000
+
+	if (interval > 1) {
+		return Math.floor(interval) + " years"
+	}
+	interval = seconds / 2592000
+	if (interval > 1) {
+		return Math.floor(interval) + " months"
+	}
+	interval = seconds / 86400
+	if (interval > 1) {
+		return Math.floor(interval) + " days"
+	}
+	interval = seconds / 3600
+	if (interval > 1) {
+		return Math.floor(interval) + " hours"
+	}
+	interval = seconds / 60
+	if (interval > 1) {
+		return Math.floor(interval) + " minutes"
+	}
+	return Math.floor(seconds) + " seconds"
+}
+var aDay = 24 * 60 * 60 * 1000
+console.log(timeSince(new Date(Date.now() - aDay)))
+console.log(timeSince(new Date(Date.now() - aDay * 2)))
+console.log(Date.now())
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
