@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { NativeBaseProvider, View, Text, Button, Heading } from "native-base";
 import { testing } from "../redux/actions";
 import { connect } from "react-redux";
-import PostPage from "./PostPage.js";
+import Comment from "../components/Comment"
 
 function Screen1({ testingAction }) {
   const dummyData = [
@@ -48,20 +48,11 @@ function Screen1({ testingAction }) {
   return (
     <SafeAreaView style={styles.container}>
       <Heading>Comments:</Heading>
-      {/* <Text>Screen1</Text>
-			<Button
-				onPress={() => {
-					testingAction()
-				}}
-			>
-				Do A Thing
-			</Button> */}
       <ScrollView style={{ marginBottom: 60 }}>
         {dummyData.map((item, index) => (
-          <PostPage {...item} key={index} />
+          <Comment {...item} key={index} />
         ))}
       </ScrollView>
-      {/* <PostPage /> */}
     </SafeAreaView>
   );
 }
