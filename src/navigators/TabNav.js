@@ -15,7 +15,7 @@ export default function TabNav() {
 
 	return (
 		<Tab.Navigator
-			initialRouteName="Screen2"
+			initialRouteName="Screen1"
 			screenOptions={{ headerShown: false }}
 		>
 			<Tab.Screen

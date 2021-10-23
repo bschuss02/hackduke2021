@@ -49,7 +49,9 @@ export default function Post({ title, username, text, upvotes, date }) {
 									<Text style={{ fontSize: 16 }}>{title}</Text>
 									<Text style={{ fontSize: 10 }}>{username}</Text>
 								</HStack>
-								<Divider style={{backgroundColor: colors.gray["400"], height:.5 }} />
+								<Divider
+									style={{ backgroundColor: colors.gray["400"], height: 0.5 }}
+								/>
 								<Text style={{ width: Dimensions.get("window").width * 0.78 }}>
 									{text}
 								</Text>
@@ -88,19 +90,19 @@ function timeSince(date) {
 	}
 	interval = seconds / 2592000
 	if (interval > 1) {
-		let returnString=  Math.floor(interval) + " months"
-		
+		let returnString = Math.floor(interval) + " months"
+
 		if (Math.floor(interval) === 1) {
-			returnString = returnString.replace('s',"")
+			returnString = returnString.replace("s", "")
 		}
 		return returnString
 	}
 	interval = seconds / 86400
-	
+
 	if (interval > 1) {
 		let returnString = Math.floor(interval) + " days"
 		if (Math.floor(interval) === 1) {
-			returnString = returnString.replace('s',"")
+			returnString = returnString.replace("s", "")
 		}
 		return returnString
 	}
@@ -108,7 +110,7 @@ function timeSince(date) {
 	if (interval > 1) {
 		let returnString = Math.floor(interval) + " hours"
 		if (Math.floor(interval) === 1) {
-			returnString = returnString.replace('s',"")
+			returnString = returnString.replace("s", "")
 		}
 		return returnString
 	}
@@ -116,7 +118,7 @@ function timeSince(date) {
 	if (interval > 1) {
 		let returnString = Math.floor(interval) + " minutes"
 		if (Math.floor(interval) === 1) {
-			returnString = returnString.replace('s',"")
+			returnString = returnString.replace("s", "")
 		}
 		return returnString
 	}

@@ -1,4 +1,5 @@
 import { db, firebase } from "../../firebase/index"
+import uuid from "react-native-uuid"
 
 const login = (email, password) => {
 	return async (dispatch, getState) => {
@@ -74,4 +75,28 @@ const testing = () => {
 	}
 }
 
-export { signup, signout, login, loadData, testing }
+const createPost = (title, text, contacts) => {
+	return async (dispatch, getState) => {
+		const currentUid = firebase.auth().currentUser.uid
+		const avatar =
+			"https://static.wikia.nocookie.net/avatar/images/7/79/Pilot_-_Aang.png/revision/latest/top-crop/width/360/height/360?cb=20120311133235"
+		const username = getState().username
+		const timestamp = Date.now()
+		const postId = uuid.v4()
+		const doc = {
+			avatar,
+			username,
+			uid: currentUid,
+			title,
+			text,
+			contacts,
+			timestamp,
+			comments: [],
+			upvotes: 0,
+		}
+
+		console.log("🚀 ~ file: index.js ~ line 84 ~ return ~ doc", doc)
+	}
+}
+
+export { signup, signout, login, loadData, testing, createPost }

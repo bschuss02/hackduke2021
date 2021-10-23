@@ -14,13 +14,14 @@ import {
 	VStack,
 	HStack,
 	Heading,
-	Divider,
+	Divider,Avatar,Icon
 } from "native-base"
 import { testing } from "../redux/actions"
 import { connect } from "react-redux"
 import Post from "../components/Post"
 import { Header } from "react-native/Libraries/NewAppScreen"
 import { useTheme } from "styled-components"
+import {Ionicons} from "@expo/vector-icons"
 
 function Screen1({ testingAction }) {
 	const dummyData = [
