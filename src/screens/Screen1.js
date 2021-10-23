@@ -73,7 +73,7 @@ function Screen1({ testingAction }) {
 	const [mode, setMode] = useState(0)
 	const { colors } = useTheme()
 	return (
-		<SafeAreaView style={{ backgroundColor:colors.primary["500"] }} >
+		<SafeAreaView  >
 			<VStack>
 				<HStack justifyContent="center" space={2}>
 					<TouchableOpacity
@@ -83,7 +83,7 @@ function Screen1({ testingAction }) {
 					>
 						<Heading
 							underline={mode === 0}
-							color={mode === 0 ? colors.primary["500"] : colors.gray["400"]}
+							color={mode === 0 ? colors.primary["500"] : colors.muted["500"]}
 						>
 							Following
 						</Heading>
@@ -96,7 +96,8 @@ function Screen1({ testingAction }) {
 					>
 						<Heading
 							underline={mode === 1}
-							color={mode === 1 ? colors.primary["500"] : colors.gray["400"]}
+							color={mode === 1 ? colors.primary["500"] : colors.muted["500"]}
+
 						>
 							General
 						</Heading>

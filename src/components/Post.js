@@ -43,7 +43,7 @@ export default function Post({ title, username, text, upvotes, date }) {
 								space={4}
 								style={{ padding: 15 }}
 								rounded="5"
-								bg={colors.white}
+								bg={colors.primary["200"]}
 							>
 								<HStack justifyContent="space-between">
 									<Text style={{ fontSize: 16 }}>{title}</Text>
