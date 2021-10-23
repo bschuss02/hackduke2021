@@ -14,13 +14,14 @@ import {
 	VStack,
 	HStack,
 	Heading,
-	Divider,
+	Divider,Avatar,Icon
 } from "native-base"
 import { testing } from "../redux/actions"
 import { connect } from "react-redux"
 import Post from "../components/Post"
 import { Header } from "react-native/Libraries/NewAppScreen"
 import { useTheme } from "styled-components"
+import {Ionicons} from "@expo/vector-icons"
 
 function Screen1({ testingAction }) {
 	const dummyData = [
@@ -29,7 +30,7 @@ function Screen1({ testingAction }) {
 			username: "username1",
 			text: "text1",
 			upvotes: -4,
-			date: "10/23/2021",
+			date: 1635017815494,
 		},
 		{
 			title: "title2",
@@ -37,21 +38,21 @@ function Screen1({ testingAction }) {
 			text:
 				"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
 			upvotes: 2,
-			date: "10/24/2021",
+			date: 1635017815494,
 		},
 		{
 			title: "title3",
 			username: "username3",
 			text: "text3",
 			upvotes: 24,
-			date: "10/21/2021",
+			date: 1635017015494,
 		},
 		{
 			title: "title1",
 			username: "username1",
 			text: "text1",
 			upvotes: -4,
-			date: "10/23/2021",
+			date: 1630007815494,
 		},
 		{
 			title: "title2",
@@ -59,21 +60,21 @@ function Screen1({ testingAction }) {
 			text:
 				"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
 			upvotes: 2,
-			date: "10/24/2021",
+			date: 1635010015424,
 		},
 		{
 			title: "title3",
 			username: "username3",
 			text: "text3",
 			upvotes: 24,
-			date: "10/21/2021",
+			date: 1635000015494,
 		},
 	]
 
 	const [mode, setMode] = useState(0)
 	const { colors } = useTheme()
 	return (
-		<SafeAreaView>
+		<SafeAreaView  >
 			<VStack>
 				<HStack justifyContent="center" space={2}>
 					<TouchableOpacity
@@ -83,7 +84,7 @@ function Screen1({ testingAction }) {
 					>
 						<Heading
 							underline={mode === 0}
-							color={mode === 0 ? colors.primary["500"] : colors.gray["400"]}
+							color={mode === 0 ? colors.primary["500"] : colors.muted["500"]}
 						>
 							Following
 						</Heading>
@@ -96,7 +97,8 @@ function Screen1({ testingAction }) {
 					>
 						<Heading
 							underline={mode === 1}
-							color={mode === 1 ? colors.primary["500"] : colors.gray["400"]}
+							color={mode === 1 ? colors.primary["500"] : colors.muted["500"]}
+
 						>
 							General
 						</Heading>

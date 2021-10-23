@@ -31,7 +31,7 @@ function Screen3({ signoutAction }) {
 			username: "username1",
 			text: "text1",
 			upvotes: -4,
-			date: "10/23/2021",
+			date: 1635017815494,
 		},
 		{
 			title: "title2",
@@ -39,14 +39,14 @@ function Screen3({ signoutAction }) {
 			text:
 				"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
 			upvotes: 2,
-			date: "10/24/2021",
+			date: 1635017815494,
 		},
 		{
 			title: "title3",
 			username: "username3",
 			text: "text3",
 			upvotes: 24,
-			date: "10/21/2021",
+			date: 1635017815494,
 		},
 		{
 			title: "title1",
@@ -80,9 +80,10 @@ function Screen3({ signoutAction }) {
 	return (
 		<SafeAreaView style={styles.container}>
 			 <Avatar
-        bg="green.500"
+        //bg="green.500"
+		style={{ flex: 1 }}
         source={{
-          uri: "https://pbs.twimg.com/profile_images/1188747996843761665/8CiUdKZW_400x400.jpg",
+          uri: "https://static.wikia.nocookie.net/avatar/images/7/79/Pilot_-_Aang.png/revision/latest/top-crop/width/360/height/360?cb=20120311133235",
         }}
       >
      
