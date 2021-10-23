@@ -2,17 +2,18 @@ import React, { useState, useEffect } from "react"
 import { StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from "react-native"
 import {
 	NativeBaseProvider,
-	View,
+
 	Text,
-	Button,
-	Container,
+	
+	
 	HStack,
 	Heading,
-	Icon,
+	
 	Avatar, 
-	Center,
+	
 	Box,
-	VStack
+	VStack,
+	Divider,
 } from "native-base"
 import { signout } from "../redux/actions"
 import Post from "../components/Post"
@@ -20,6 +21,7 @@ import { Ionicons } from "@expo/vector-icons"
 import { connect } from "react-redux"
 import { useNavigation } from "@react-navigation/core"
 import { useTheme } from "styled-components"
+import { margin } from "styled-system"
 
 
 function Screen3({ signoutAction }) {
@@ -70,8 +72,9 @@ function Screen3({ signoutAction }) {
 		},
 	]
 	const navigation = useNavigation()
+	const[follow, setFollow] = useState(false)
 	const [mode, setMode] = useState(0)
-	console.log(mode)
+	console.log(follow)
 	const { colors } = useTheme()
 
 	return (
@@ -91,20 +94,19 @@ function Screen3({ signoutAction }) {
       borderColor="coolGray.200">
 
 			<Text>Username</Text></Box>
-	<Box bg={colors.tertiary["300"]}  rounded ='lg'><Text> Follow</Text></Box>
-
+			<TouchableOpacity onPress= {() => 
+			setFollow(!follow)}>
+			
+	<Box bg={colors.tertiary["300"]}  rounded ='lg'><Text>{follow ?  "Follow" : "Unfollow"}</Text></Box>
+		</TouchableOpacity>
 
 		</HStack>
 	<HStack style ={styles.Hstack2entire}>
-		<Box bg={colors.tertiary["300"]}  rounded ='lg'>
-		<VStack style={styles.HStack2}>
-		<Text>383838</Text>
-		<Text> Posts</Text>
-		</VStack>
-		</Box >
+		
 		<Box bg={colors.tertiary["300"]}  rounded ='lg' >
 		<VStack style={styles.HStack2}>
 		<Text>383838</Text>
+	
 		<Text> Following</Text>
 		</VStack>
 		</Box>
@@ -121,7 +123,7 @@ function Screen3({ signoutAction }) {
 		</VStack>
 		</Box>
 	</HStack>
-<HStack >
+<HStack style= {{justifyContent:"space-between" , width: "50%", }}>
 <TouchableOpacity onPress={() => {
 							setMode(0)
 						}} >
@@ -146,11 +148,15 @@ function Screen3({ signoutAction }) {
 						</Text>
 						</TouchableOpacity>
 						</HStack>
-						<ScrollView style={{ marginBottom: 60 }}>
+						<Divider style= {{marginTop: 5}} color = {colors.primary["500"]}/>
+						<ScrollView style={{ marginBottom: 5 }}>
 					{dummyData.map((item, index) => (
 						<Post {...item} key={index} />
 					))}
+				
+
 				</ScrollView>
+				
 		</SafeAreaView>
 	)
 }
@@ -174,18 +180,20 @@ const styles = StyleSheet.create({
 	HStack2: {
 		
 		alignItems: "center",
+		padding: 5,
 		
 	},
 	Hstack2entire: {
 		paddingBottom:15,
-		width: "80%",
+		width: "70%",
 		flexDirection: "row",
 		justifyContent: "space-between"
 	},
 	HackStack1: {
 		padding:15,
-		width:"40%",
-		justifyContent: "space-between"
+		width:"45%",
+		justifyContent: "space-between",
+		marginHorizontal:0
 	},
 	Headers:{
 		fontSize:20,
