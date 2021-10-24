@@ -22,18 +22,35 @@ import {
 
 import { Ionicons, Fontisto } from "@expo/vector-icons"
 
-export default function Post({ title, username, text, upvotes, date }) {
+export default function Post({
+	title,
+	username,
+	text,
+	upvotes,
+	timestamp,
+	upvotePostAction,
+	uid,
+	postId,
+}) {
 	const { colors } = useTheme()
 	return (
 		<SafeAreaView style={{ width: Dimensions.get("window").width }}>
 			<Box style={{ margin: 10 }} shadow={8}>
-				<HStack space={1}>
+				<HStack space={1} alignItems="center">
 					<VStack justifyContent="flex-start" alignItems="center">
-						<TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => {
+								upvotePostAction(uid, postId, 1)
+							}}
+						>
 							<Icon as={Ionicons} name="arrow-up" />
 						</TouchableOpacity>
 						<Text>{upvotes}</Text>
-						<TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => {
+								upvotePostAction(uid, postId, -1)
+							}}
+						>
 							<Icon as={Ionicons} name="arrow-down" />
 						</TouchableOpacity>
 					</VStack>
@@ -68,7 +85,7 @@ export default function Post({ title, username, text, upvotes, date }) {
 									Comments
 								</Text>
 							</TouchableOpacity>
-							<Text>{`${timeSince(date)} ago`}</Text>
+							<Text>{`${timeSince(timestamp)} ago`}</Text>
 						</HStack>
 					</VStack>
 					{/* <VStack alignItems="center">

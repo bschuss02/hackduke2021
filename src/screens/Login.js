@@ -21,7 +21,10 @@ function Login({ loginAction, error }) {
 	const { colors } = useTheme()
 	useEffect(() => {
 		if (error) {
-			toast.show({ description: error, backgroundColor: "error.500" })
+			toast.show({
+				description: error,
+				backgroundColor: "error.500",
+			})
 			dispatch({ type: "CLEAR_ERROR" })
 		}
 	})

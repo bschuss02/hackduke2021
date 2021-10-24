@@ -48,27 +48,26 @@ function Screen2({ user }) {
 	const { colors } = useTheme()
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<Box alignItems="center">
-				<VStack style={{ margin: 15 }} space={3}>
-					<Input
-						// w={{ base: "85%" }}
+			<ScrollView>
+				<Box alignItems="center">
+					<VStack style={{ margin: 35 }} space={3}>
+						<Input
+							placeholder="Search for people to follow"
+							borderRadius={20}
+							borderWidth={2}
+							InputLeftElement={
+								<Icon
+									style={{ margin: 5 }}
+									color={colors.gray["400"]}
+									as={Ionicons}
+									name="search"
+								/>
+							}
+							InputRightElement={<Button style={{ margin: 5 }}>Search</Button>}
+							autoCorrect={false}
+							autoCapitalize="none"
+						/>
 
-						borderRadius={20}
-						borderWidth={2}
-						InputLeftElement={
-							<Icon
-								style={{ margin: 5 }}
-								color={colors.gray["400"]}
-								as={Ionicons}
-								name="search"
-							/>
-						}
-						InputRightElement={<Button style={{ margin: 5 }}>Search</Button>}
-						autoCorrect={false}
-						autoCapitalize="none"
-					/>
-
-					<ScrollView>
 						<VStack space={10}>
 							<VStack space={4} alignItems="center">
 								{dummyDataUsernames.map((item, index) => (
@@ -83,9 +82,9 @@ function Screen2({ user }) {
 								))}
 							</VStack>
 						</VStack>
-					</ScrollView>
-				</VStack>
-			</Box>
+					</VStack>
+				</Box>
+			</ScrollView>
 		</SafeAreaView>
 	)
 }

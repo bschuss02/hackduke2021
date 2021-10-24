@@ -2,6 +2,7 @@ const initialState = {
 	isDoneLoading: false,
 	error: "",
 	user: {},
+	feed: [],
 }
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
@@ -17,7 +18,13 @@ function rootReducer(state = initialState, action) {
 		}
 
 		case "DONE_LOADING": {
-			return { ...state, user: action.userData, isDoneLoading: true }
+			// console.log("done loading user feed", action.feed)
+			return {
+				...state,
+				user: action.userData,
+				isDoneLoading: true,
+				feed: action.feed,
+			}
 		}
 
 		case "CLEAR_DONE_LOADING": {

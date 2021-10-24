@@ -4,6 +4,7 @@ import {
 	SafeAreaView,
 	TouchableOpacity,
 	ScrollView,
+	StatusBar,
 } from "react-native"
 import {
 	NativeBaseProvider,
@@ -14,67 +15,70 @@ import {
 	VStack,
 	HStack,
 	Heading,
-	Divider,Avatar,Icon
+	Divider,
+	Avatar,
+	Icon,
 } from "native-base"
 import { testing } from "../redux/actions"
 import { connect } from "react-redux"
 import Post from "../components/Post"
 import { Header } from "react-native/Libraries/NewAppScreen"
 import { useTheme } from "styled-components"
-import {Ionicons} from "@expo/vector-icons"
+import { Ionicons } from "@expo/vector-icons"
+import { upvotePost } from "../redux/actions"
 
-function Screen1({ testingAction }) {
-	const dummyData = [
-		{
-			title: "title1",
-			username: "username1",
-			text: "text1",
-			upvotes: -4,
-			date: 1635017815494,
-		},
-		{
-			title: "title2",
-			username: "username2",
-			text:
-				"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
-			upvotes: 2,
-			date: 1635017815494,
-		},
-		{
-			title: "title3",
-			username: "username3",
-			text: "text3",
-			upvotes: 24,
-			date: 1635017015494,
-		},
-		{
-			title: "title1",
-			username: "username1",
-			text: "text1",
-			upvotes: -4,
-			date: 1630007815494,
-		},
-		{
-			title: "title2",
-			username: "username2",
-			text:
-				"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
-			upvotes: 2,
-			date: 1635010015424,
-		},
-		{
-			title: "title3",
-			username: "username3",
-			text: "text3",
-			upvotes: 24,
-			date: 1635000015494,
-		},
-	]
+const dummyData = [
+	{
+		title: "title1",
+		username: "username1",
+		text: "text1",
+		upvotes: -4,
+		date: 1635017815494,
+	},
+	{
+		title: "title2",
+		username: "username2",
+		text:
+			"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
+		upvotes: 2,
+		date: 1635017815494,
+	},
+	{
+		title: "title3",
+		username: "username3",
+		text: "text3",
+		upvotes: 24,
+		date: 1635017015494,
+	},
+	{
+		title: "title1",
+		username: "username1",
+		text: "text1",
+		upvotes: -4,
+		date: 1630007815494,
+	},
+	{
+		title: "title2",
+		username: "username2",
+		text:
+			"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
+		upvotes: 2,
+		date: 1635010015424,
+	},
+	{
+		title: "title3",
+		username: "username3",
+		text: "text3",
+		upvotes: 24,
+		date: 1635000015494,
+	},
+]
 
+function Screen1({ feed, upvotePostAction }) {
 	const [mode, setMode] = useState(0)
 	const { colors } = useTheme()
 	return (
-		<SafeAreaView  >
+		<SafeAreaView>
 			<VStack>
 				<HStack justifyContent="center" space={2}>
 					<TouchableOpacity
@@ -98,15 +102,14 @@ function Screen1({ testingAction }) {
 						<Heading
 							underline={mode === 1}
 							color={mode === 1 ? colors.primary["500"] : colors.muted["500"]}
-
 						>
 							General
 						</Heading>
 					</TouchableOpacity>
 				</HStack>
 				<ScrollView style={{ marginBottom: 60 }}>
-					{dummyData.map((item, index) => (
-						<Post {...item} key={index} />
+					{feed.map((item, index) => (
+						<Post upvotePostAction={upvotePostAction} {...item} key={index} />
 					))}
 				</ScrollView>
 			</VStack>
@@ -114,9 +117,13 @@ function Screen1({ testingAction }) {
 	)
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+	feed: state.feed,
+})
 const mapDispatchToProps = (dispatch) => ({
 	testingAction: () => dispatch(testing()),
+	upvotePostAction: (uid, postId, downvote) =>
+		dispatch(upvotePost(uid, postId, downvote)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Screen1)
