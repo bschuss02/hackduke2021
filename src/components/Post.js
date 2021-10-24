@@ -78,14 +78,14 @@ export default function Post({
 									<Icon as={Ionicons} name="arrow-up" />
 								</TouchableOpacity>
 								<Text>{upvotes}</Text>
-								<TouchableOpacity
+								{/* <TouchableOpacity
 									style={{ padding: 5 }}
 									onPress={() => {
 										upvotePostAction(uid, postId, -1)
 									}}
 								>
 									<Icon as={Ionicons} name="arrow-down" />
-								</TouchableOpacity>
+								</TouchableOpacity> */}
 							</HStack>
 							<TouchableOpacity>
 								<Icon as={FontAwesome} name="comments-o" />

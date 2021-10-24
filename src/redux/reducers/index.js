@@ -24,6 +24,8 @@ function rootReducer(state = initialState, action) {
 				user: action.userData,
 				isDoneLoading: true,
 				feed: action.feed,
+				myPosts: action.myPosts,
+				upvotedPosts: action.upvotedPosts,
 			}
 		}
 

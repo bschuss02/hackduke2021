@@ -92,12 +92,50 @@ const loadFeed = async (userData) => {
 	return feed
 }
 
+const loadMyPosts = async () => {
+	const currentUid = firebase.auth().currentUser.uid
+	const querySnapshot = db
+		.collection("users")
+		.doc(currentUid)
+		.collection("posts")
+		.get()
+
+	const data = (await querySnapshot).docs.map((doc) => doc.data())
+	data.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
+	return data
+}
+
+const getQuerySnapshots2 = async (upvotedPosts) => {
+	let querySnapshots = []
+
+	for (const post of upvotedPosts) {
+		const { uid, postId } = post
+		const querySnapshot = await db
+			.collection("users")
+			.doc(uid)
+			.collection("posts")
+			.doc(postId)
+			.get()
+		querySnapshots.push(querySnapshot)
+	}
+	return querySnapshots
+}
+
+const loadUpvotedPosts = async (userData) => {
+	const { upvotedPosts } = userData
+	const querySnapshots = await getQuerySnapshots2(upvotedPosts)
+	const posts = querySnapshots.map((snapshot) => snapshot.data())
+	return posts
+}
+
 const loadData = () => {
 	return async (dispatch, getState) => {
 		const userData = await getCurrentUserData()
 		const feed = await loadFeed(userData)
+		const myPosts = await loadMyPosts()
+		const upvotedPosts = await loadUpvotedPosts(userData)
 
-		dispatch({ type: "DONE_LOADING", userData, feed })
+		dispatch({ type: "DONE_LOADING", userData, feed, myPosts, upvotedPosts })
 	}
 }
 
@@ -220,17 +258,21 @@ const upvotePost = (uid, postId, downvote) => {
 			.doc(postId)
 			.update({ upvotes: newTotal })
 
-		if (downvote === 1) {
-			const record = { uid, postId }
-			const userData = await getUserData()
-			let { upvotedPosts } = userData
-			upvotedPosts = [...upvotedPosts, record]
+		const record = { uid, postId, downvote }
+		const userData = await getUserData()
+		let { upvotedPosts } = userData
+		upvotedPosts = [record, ...upvotedPosts]
+		const unique = {}
+		upvotedPosts = upvotedPosts.filter((post) => {
+			const isRepeat = post.postId in unique
+			unique[post.postId] = true
+			return !isRepeat
+		})
 
-			await db
-				.collection("users")
-				.doc(currentUid)
-				.update({ upvotedPosts })
-		}
+		await db
+			.collection("users")
+			.doc(currentUid)
+			.update({ upvotedPosts })
 
 		dispatch(loadData())
 	}
