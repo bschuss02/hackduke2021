@@ -283,6 +283,38 @@ const upvotePost = (uid, postId, downvote) => {
 	}
 }
 
+const createComment = (text, postId, uid) => {
+	return async (dispatch, getState) => {
+		const { avatar, username } = getState().user
+		console.log("🚀 ~ file: index.js ~ line 289 ~ return ~ avatar", avatar)
+		const newComment = {
+			text,
+			postId,
+			uid,
+			timestamp: Date.now(),
+			avatar,
+			username,
+		}
+		const querySnapshot = await db
+			.collection("users")
+			.doc(uid)
+			.collection("posts")
+			.doc(postId)
+			.get()
+		const queryData = querySnapshot.data()
+		let { comments } = queryData
+		comments = [...comments, newComment]
+
+		await db
+			.collection("users")
+			.doc(uid)
+			.collection("posts")
+			.doc(postId)
+			.update({ comments })
+		dispatch(loadData())
+	}
+}
+
 export {
 	signup,
 	signout,
@@ -292,4 +324,5 @@ export {
 	createPost,
 	followUser,
 	upvotePost,
+	createComment,
 }
