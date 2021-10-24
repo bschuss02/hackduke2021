@@ -91,39 +91,46 @@ function Screen3({ signoutAction }) {
 		<HStack style ={styles.HackStack1}>
 		<Box rounded="lg"
       overflow="hidden"
-		bg={colors.tertiary["300"]}
-      borderColor="coolGray.200">
+		bg={colors.primary["200"]}
+      borderColor="coolGray.200"
+	  style ={styles.boxing}>
 
 			<Text>Username</Text></Box>
 			<TouchableOpacity onPress= {() => 
 			setFollow(!follow)}>
 			
-	<Box bg={colors.tertiary["300"]}  rounded ='lg'><Text>{follow ?  "Follow" : "Unfollow"}</Text></Box>
+	<Box bg={colors.primary["200"]} style ={styles.boxing} rounded ='lg'><Text>{follow ?  "Follow" : "Unfollow"}</Text></Box>
 		</TouchableOpacity>
 
 		</HStack>
+		<Divider/>
 	<HStack style ={styles.Hstack2entire}>
-		
-		<Box bg={colors.tertiary["300"]}  rounded ='lg' >
+		<TouchableOpacity>
+		<Box bg={colors.primary["200"]}  rounded ='lg' shadow={5}>
+			
 		<VStack style={styles.HStack2}>
-		<Text>383838</Text>
+		<Text style={{fontWeight: 'bold'}}>383838</Text>
 	
-		<Text> Following</Text>
+		<Text style={{fontSize: 12}}> Following</Text>
 		</VStack>
 		</Box>
-		<Box  bg={colors.tertiary["300"]}  rounded ='lg'>
+		</TouchableOpacity>
+		<TouchableOpacity>
+		<Box  bg={colors.primary["200"]} shadow={5} rounded ='lg'>
 		<VStack style={styles.HStack2}>
-		<Text>383838</Text>
-		<Text> Follwers</Text>
+		<Text style={{fontWeight: 'bold'}}>383838</Text>
+		<Text style={{fontSize: 12}}> Followers</Text>
 		</VStack>
 		</Box>
-		<Box bg={colors.tertiary["300"]}  rounded ='lg' >
+		</TouchableOpacity>
+		<Box bg={colors.primary["200"]}  shadow={5} rounded ='lg' >
 		<VStack style={styles.HStack2}>
-		<Text>383838</Text>
-		<Text> Upvotes</Text>
+		<Text style={{fontWeight: 'bold'}}>383838</Text>
+		<Text style={{fontSize: 12}}> Upvotes</Text>
 		</VStack>
 		</Box>
 	</HStack>
+	<Divider/>
 <HStack style= {{justifyContent:"space-between" , width: "50%", }}>
 <TouchableOpacity onPress={() => {
 							setMode(0)
@@ -149,7 +156,7 @@ function Screen3({ signoutAction }) {
 						</Text>
 						</TouchableOpacity>
 						</HStack>
-						<Divider style= {{marginTop: 5}} color = {colors.primary["500"]}/>
+						
 						<ScrollView style={{ marginBottom: 5 }}>
 					{dummyData.map((item, index) => (
 						<Post {...item} key={index} />
@@ -192,13 +199,17 @@ const styles = StyleSheet.create({
 	},
 	HackStack1: {
 		padding:15,
-		width:"45%",
+		width:"55%",
 		justifyContent: "space-between",
 		marginHorizontal:0
 	},
 	Headers:{
 		fontSize:20,
-	}
+	},
+	boxing:{
+		
+		paddingHorizontal: 10,
 
+	}
 
 })
