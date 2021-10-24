@@ -15,17 +15,21 @@ import {
 	Icon,
 	ScrollView,
 	Heading,
+	Select,
 } from "native-base"
 import { login } from "../redux/actions"
 import { connect, useDispatch } from "react-redux"
 import { TextArea } from "native-base"
 import { Ionicons, AntDesign } from "@expo/vector-icons"
 import { Colors } from "react-native/Libraries/NewAppScreen"
+import { createPost } from "../redux/actions/index"
+import { NavigationContainer, useNavigation } from "@react-navigation/native"
 
-export default function CreatePost({ postAction, error }) {
+function CreatePost({ postAction, error, createPostAction }) {
 	const dispatch = useDispatch()
 	const toast = useToast()
 	const { colors } = useTheme()
+	const navigation = useNavigation()
 	//colors.primary["500"]
 	useEffect(() => {
 		if (error) {
@@ -39,8 +43,8 @@ export default function CreatePost({ postAction, error }) {
 
 	const [postTitle, setPostTitle] = useState("")
 	const [postDescription, setPostDescription] = useState("")
-	const [socialMediaHandle, setSocialMediaHandle] = useState("")
-	const [contactDescription, setContactDescription] = useState("")
+	const [socialMediaHandle, setSocialMediaHandle] = useState([])
+	const [contactDescription, setContactDescription] = useState([])
 	const [dummyData, setDummyData] = useState([])
 
 	return (
@@ -112,16 +116,22 @@ export default function CreatePost({ postAction, error }) {
 										marginRight: 5,
 									}}
 								>
-									<Picker
-										style={{ height: 50, width: 175 }}
+									<Select
+										style={{ height: 50, width: 400 }}
+										minWidth={150}
 										placeholder="Platform"
-										value={selectedSocialMedia[index]}
+										selectedValue={selectedSocialMedia[index]}
+										_selectedItem={{ bg: "primary.200" }}
 										onValueChange={(itemValue, itemIndex) => {
 											setSelectedSocialMedia([
 												...selectedSocialMedia.slice(0, index),
 												itemValue,
 												...selectedSocialMedia.slice(index + 1),
 											])
+											console.log("dummy data", dummyData)
+											console.log("itemvalue", itemValue)
+											console.log("index", index)
+
 											dummyData[index].platform = itemValue
 											switch (itemValue) {
 												case "twitter": {
@@ -167,21 +177,25 @@ export default function CreatePost({ postAction, error }) {
 											}
 										}}
 									>
-										<Picker.Item label="Select Platform" value="" />
-										<Picker.Item label="Twitter" value="twitter" />
-										<Picker.Item label="Email" value="email" />
-										<Picker.Item label="Phone Number" value="phone" />
-										<Picker.Item label="Instagram" value="insta" />
-										<Picker.Item label="Facebook" value="fb" />
-									</Picker>
+										<Select.Item label="Select Platform" value="" />
+										<Select.Item label="Twitter" value="twitter" />
+										<Select.Item label="Email" value="email" />
+										<Select.Item label="Phone Number" value="phone" />
+										<Select.Item label="Instagram" value="insta" />
+										<Select.Item label="Facebook" value="fb" />
+									</Select>
 								</View>
 
 								<Input
 									backgroundColor={colors.primary["200"]}
 									style={styles.handle}
-									value={socialMediaHandle}
+									value={socialMediaHandle[index]}
 									onChangeText={(e) => {
-										setSocialMediaHandle(e)
+										setSocialMediaHandle([
+											...socialMediaHandle.slice(0, index),
+											e,
+											...socialMediaHandle.slice(index + 1),
+										])
 										dummyData[index].handle = e
 									}}
 									variants="underlined"
@@ -198,9 +212,13 @@ export default function CreatePost({ postAction, error }) {
 								style={{ textAlignVertical: "top" }}
 								multiline={true}
 								h={50}
-								value={contactDescription}
+								value={contactDescription[index]}
 								onChangeText={(e) => {
-									setContactDescription(e)
+									setContactDescription([
+										...contactDescription.slice(0, index),
+										e,
+										...contactDescription.slice(index + 1),
+									])
 									dummyData[index].description = e
 								}}
 								variants="underlined"
@@ -221,6 +239,7 @@ export default function CreatePost({ postAction, error }) {
 								description: "",
 								value: dummyData.length + 1,
 							}
+
 							setDummyData([...dummyData, newObj])
 						}}
 					>
@@ -232,8 +251,35 @@ export default function CreatePost({ postAction, error }) {
 					</TouchableOpacity>
 
 					<View style={{ padding: 10, marginTop: 30, marginBottom: 20 }}>
-						<Button>Create Post</Button>
+						<Button
+							onPress={() => {
+								console.log(
+									"🚀 ~ file: CreatePost.js ~ line 240 ~ CreatePost ~ dummyData",
+									dummyData,
+								)
+								console.log(
+									"🚀 ~ file: CreatePost.js ~ line 240 ~ CreatePost ~ postDescription",
+									postDescription,
+								)
+								console.log(
+									"🚀 ~ file: CreatePost.js ~ line 242 ~ CreatePost ~ postTitle",
+									postTitle,
+								)
+
+								const contacts = dummyData.map((item) => ({
+									platform: item.platform,
+									info: item.handle,
+									text: item.description,
+								}))
+
+								createPostAction(postTitle, postDescription, contacts)
+								navigation.navigate("TabNav")
+							}}
+						>
+							Create Post
+						</Button>
 						{/* <TouchableOpacity
+              
                         style = {{alignItems : "center"}}
                     >
                         <Text>Create Post</Text>
@@ -254,6 +300,14 @@ export default function CreatePost({ postAction, error }) {
 		</ScrollView>
 	)
 }
+
+const mapStateToProps = (state) => ({})
+const mapDispatchToProps = (dispatch) => ({
+	createPostAction: (title, text, contacts) =>
+		dispatch(createPost(title, text, contacts)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePost)
 
 const styles = StyleSheet.create({
 	container: {

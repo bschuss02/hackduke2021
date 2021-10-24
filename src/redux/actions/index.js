@@ -136,6 +136,8 @@ const createPost = (title, text, contacts) => {
 			.collection("posts")
 			.doc(postId)
 			.set(doc)
+
+		dispatch(loadData())
 	}
 }
 
