@@ -128,9 +128,6 @@ function CreatePost({ postAction, error, createPostAction }) {
 												itemValue,
 												...selectedSocialMedia.slice(index + 1),
 											])
-											console.log("dummy data", dummyData)
-											console.log("itemvalue", itemValue)
-											console.log("index", index)
 
 											dummyData[index].platform = itemValue
 											switch (itemValue) {

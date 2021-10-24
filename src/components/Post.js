@@ -34,6 +34,8 @@ export default function Post({
 	uid,
 	postId,
 	avatar,
+	contacts,
+	comments,
 }) {
 	const { colors } = useTheme()
 	const navigation = useNavigation()
@@ -49,7 +51,18 @@ export default function Post({
 					>
 						<TouchableOpacity
 							onPress={() => {
-								navigation.navigate("Post View")
+								navigation.navigate("Post View", {
+									title,
+									username,
+									text,
+									upvotes,
+									timestamp,
+									uid,
+									postId,
+									avatar,
+									contacts,
+									comments,
+								})
 							}}
 						>
 							<VStack
