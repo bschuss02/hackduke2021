@@ -74,7 +74,14 @@ const dummyData = [
 	},
 ]
 
-function Screen3({ signoutAction, user, username, followUserAction }) {
+function Screen3({
+	signoutAction,
+	user,
+	username,
+	followUserAction,
+	myPosts,
+	upvotedPosts,
+}) {
 	const navigation = useNavigation()
 	const [follow, setFollow] = useState(false)
 	const [mode, setMode] = useState(0)
@@ -173,7 +180,7 @@ function Screen3({ signoutAction, user, username, followUserAction }) {
 						marginBottom: 15,
 					}}
 				/>
-				<HStack style={{ justifyContent: "space-between", width: "50%" }}>
+				<HStack space={3} style={{ justifyContent: "center", width: "50%" }}>
 					<TouchableOpacity
 						onPress={() => {
 							setMode(0)
@@ -205,9 +212,10 @@ function Screen3({ signoutAction, user, username, followUserAction }) {
 			</VStack>
 			<Divider style={{ marginTop: 5 }} color={colors.primary["500"]} />
 			<ScrollView style={{ marginBottom: 5 }}>
-				{dummyData.map((item, index) => (
-					<Post {...item} key={index} />
-				))}
+				{mode === 0 &&
+					myPosts.map((item, index) => <Post {...item} key={index} />)}
+				{mode === 1 &&
+					upvotedPosts.map((item, index) => <Post {...item} key={index} />)}
 			</ScrollView>
 		</SafeAreaView>
 	)
@@ -218,6 +226,8 @@ const mapStateToProps = (state) => ({
 	username: state.username,
 	uid: state.user.uid,
 	avatar: state.user.avatar,
+	myPosts: state.myPosts,
+	upvotedPosts: state.upvotedPosts,
 })
 
 const mapDispatchToProps = (dispatch) => ({
