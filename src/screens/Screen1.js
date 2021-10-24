@@ -3,18 +3,16 @@ import { StyleSheet } from "react-native"
 import { NativeBaseProvider, View, Text, Button } from "native-base"
 import { testing } from "../redux/actions"
 import { connect } from "react-redux"
+import CreatePost from "./CreatePost.js"
+
 
 function Screen1({ testingAction }) {
 	return (
 		<View style={styles.container}>
-			<Text>Screen1</Text>
-			<Button
-				onPress={() => {
-					testingAction()
-				}}
-			>
-				Do A Thing
-			</Button>
+			
+			<CreatePost/>			
+			
+			
 		</View>
 	)
 }
