@@ -10,6 +10,7 @@ import TabNav from "./TabNav"
 import Settings from "../screens/Settings"
 import { useTheme } from "styled-components"
 import CreatePost from "../screens/CreatePost"
+import PostOnlyPage from "../screens/PostOnlyPage"
 
 const Stack = createStackNavigator()
 
@@ -32,6 +33,7 @@ export default function StackNav() {
 			/>
 			<Stack.Screen name="Login" component={Login} />
 			<Stack.Screen name="Sign Up" component={Signup} />
+			<Stack.Screen name="Post View" component={PostOnlyPage} />
 			<Stack.Screen
 				name="Loading"
 				component={Loading}
