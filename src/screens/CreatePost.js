@@ -253,19 +253,6 @@ function CreatePost({ postAction, error, createPostAction }) {
 					<View style={{ padding: 10, marginTop: 30, marginBottom: 20 }}>
 						<Button
 							onPress={() => {
-								console.log(
-									"🚀 ~ file: CreatePost.js ~ line 240 ~ CreatePost ~ dummyData",
-									dummyData,
-								)
-								console.log(
-									"🚀 ~ file: CreatePost.js ~ line 240 ~ CreatePost ~ postDescription",
-									postDescription,
-								)
-								console.log(
-									"🚀 ~ file: CreatePost.js ~ line 242 ~ CreatePost ~ postTitle",
-									postTitle,
-								)
-
 								const contacts = dummyData.map((item) => ({
 									platform: item.platform,
 									info: item.handle,

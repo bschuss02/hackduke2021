@@ -74,11 +74,21 @@ const dummyData = [
 	},
 ]
 
-function Screen3({ signoutAction, user, username, followUserAction }) {
+function Screen3({
+	signoutAction,
+	user,
+	username,
+	followUserAction,
+	myPosts,
+	upvotedPosts,
+	followers,
+	following,
+	upvotes,
+}) {
 	const navigation = useNavigation()
 	const [follow, setFollow] = useState(false)
 	const [mode, setMode] = useState(0)
-	console.log(follow)
+
 	const { colors } = useTheme()
 
 	return (
@@ -141,7 +151,9 @@ function Screen3({ signoutAction, user, username, followUserAction }) {
 						rounded="lg"
 					>
 						<VStack style={styles.HStack2}>
-							<Text style={{ fontSize: 20, fontWeight: "bold" }}>38</Text>
+							<Text style={{ fontSize: 20, fontWeight: "bold" }}>
+								{following.length}
+							</Text>
 							<Text style={{ fontStyle: "italic" }}> Following</Text>
 						</VStack>
 					</Box>
@@ -150,8 +162,10 @@ function Screen3({ signoutAction, user, username, followUserAction }) {
 						rounded="lg"
 					>
 						<VStack style={styles.HStack2}>
-							<Text style={{ fontSize: 20, fontWeight: "bold" }}>338</Text>
-							<Text style={{ fontStyle: "italic" }}> Follwers</Text>
+							<Text style={{ fontSize: 20, fontWeight: "bold" }}>
+								{followers.length}
+							</Text>
+							<Text style={{ fontStyle: "italic" }}> Followers</Text>
 						</VStack>
 					</Box>
 					<Box
@@ -159,7 +173,9 @@ function Screen3({ signoutAction, user, username, followUserAction }) {
 						rounded="lg"
 					>
 						<VStack style={styles.HStack2}>
-							<Text style={{ fontSize: 20, fontWeight: "bold" }}>388</Text>
+							<Text style={{ fontSize: 20, fontWeight: "bold" }}>
+								{upvotes}
+							</Text>
 							<Text style={{ fontStyle: "italic" }}> Upvotes</Text>
 						</VStack>
 					</Box>
@@ -173,7 +189,7 @@ function Screen3({ signoutAction, user, username, followUserAction }) {
 						marginBottom: 15,
 					}}
 				/>
-				<HStack style={{ justifyContent: "space-between", width: "50%" }}>
+				<HStack space={3} style={{ justifyContent: "center", width: "50%" }}>
 					<TouchableOpacity
 						onPress={() => {
 							setMode(0)
@@ -205,9 +221,10 @@ function Screen3({ signoutAction, user, username, followUserAction }) {
 			</VStack>
 			<Divider style={{ marginTop: 5 }} color={colors.primary["500"]} />
 			<ScrollView style={{ marginBottom: 5 }}>
-				{dummyData.map((item, index) => (
-					<Post {...item} key={index} />
-				))}
+				{mode === 0 &&
+					myPosts.map((item, index) => <Post {...item} key={index} />)}
+				{mode === 1 &&
+					upvotedPosts.map((item, index) => <Post {...item} key={index} />)}
 			</ScrollView>
 		</SafeAreaView>
 	)
@@ -218,6 +235,11 @@ const mapStateToProps = (state) => ({
 	username: state.username,
 	uid: state.user.uid,
 	avatar: state.user.avatar,
+	myPosts: state.myPosts,
+	upvotedPosts: state.upvotedPosts,
+	followers: state.user.followers,
+	following: state.user.following,
+	upvotes: state.upvotes,
 })
 
 const mapDispatchToProps = (dispatch) => ({

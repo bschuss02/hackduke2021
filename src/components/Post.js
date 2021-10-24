@@ -22,6 +22,7 @@ import {
 } from "native-base"
 
 import { Ionicons, Fontisto, FontAwesome } from "@expo/vector-icons"
+import { useNavigation } from "@react-navigation/native"
 
 export default function Post({
 	title,
@@ -35,6 +36,7 @@ export default function Post({
 	avatar,
 }) {
 	const { colors } = useTheme()
+	const navigation = useNavigation()
 	return (
 		<SafeAreaView style={{ width: Dimensions.get("window").width }}>
 			<Box shadow={8}>
@@ -45,7 +47,11 @@ export default function Post({
 							width: Dimensions.get("window").width * 0.96,
 						}}
 					>
-						<TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => {
+								navigation.navigate("Post View")
+							}}
+						>
 							<VStack
 								space={4}
 								style={{ padding: 15 }}
@@ -78,14 +84,14 @@ export default function Post({
 									<Icon as={Ionicons} name="arrow-up" />
 								</TouchableOpacity>
 								<Text>{upvotes}</Text>
-								<TouchableOpacity
+								{/* <TouchableOpacity
 									style={{ padding: 5 }}
 									onPress={() => {
 										upvotePostAction(uid, postId, -1)
 									}}
 								>
 									<Icon as={Ionicons} name="arrow-down" />
-								</TouchableOpacity>
+								</TouchableOpacity> */}
 							</HStack>
 							<TouchableOpacity>
 								<Icon as={FontAwesome} name="comments-o" />
