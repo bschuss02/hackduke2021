@@ -1,51 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import {
-  StyleSheet,
-  SafeAreaView,
-  TouchableOpacity,
-  SafeAreaViewBase,
-  Dimensions,
-} from "react-native";
+	StyleSheet,
+	SafeAreaView,
+	TouchableOpacity,
+	SafeAreaViewBase,
+	Dimensions,
+} from "react-native"
 import {
-  NativeBaseProvider,
-  View,
-  Text,
-  Button,
-  Container,
-  HStack,
-  VStack,
-  Heading,
-  Icon,
-  Box,
-  Divider,
-} from "native-base";
-import { signout } from "../redux/actions";
+	NativeBaseProvider,
+	View,
+	Text,
+	Button,
+	Container,
+	HStack,
+	VStack,
+	Heading,
+	Icon,
+	Box,
+	Divider,
+} from "native-base"
+import { signout } from "../redux/actions"
 
-import { Ionicons } from "@expo/vector-icons";
-import { connect } from "react-redux";
-import { useNavigation } from "@react-navigation/core";
+import { Ionicons } from "@expo/vector-icons"
+import { connect } from "react-redux"
+import { useNavigation } from "@react-navigation/core"
 
 function PostPage({ username, date, text }) {
-  return (
-    <SafeAreaView>
-      <Box style={{ margin: 10 }} bg="primary.400" rounded="lg" shadow={8}>
-        <VStack space={2} style={{ padding: 20 }}>
-        <TouchableOpacity>
-          <HStack justifyContent="space-between">
-            <Text style={{ fontSize: 20 }}>{username}</Text>
-            <Text>{date}</Text>
-          </HStack>
-          <Divider />
-          <View>
-            <Text style={{ width: Dimensions.get("window").width * 0.72 }}>
-              {text}
-            </Text>
-          </View>
-          </TouchableOpacity>
-        </VStack>
-      </Box>
-    </SafeAreaView>
-  );
+	return (
+		<SafeAreaView>
+			<Box style={{ margin: 10 }} bg="primary.400" rounded="lg" shadow={8}>
+				<VStack space={2} style={{ padding: 20 }}>
+					<TouchableOpacity>
+						<HStack justifyContent="space-between">
+							<Text style={{ fontSize: 20 }}>{username}</Text>
+							<Text>{date}</Text>
+						</HStack>
+						<Divider />
+						<View>
+							<Text style={{ width: Dimensions.get("window").width * 0.72 }}>
+								{text}
+							</Text>
+						</View>
+					</TouchableOpacity>
+				</VStack>
+			</Box>
+		</SafeAreaView>
+	)
 }
 
-export default PostPage;
+export default PostPage

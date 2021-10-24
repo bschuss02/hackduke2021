@@ -122,7 +122,7 @@ function Screen1({ feed, upvotePostAction }) {
 						</Heading>
 					</TouchableOpacity>
 				</HStack>
-				<ScrollView style={{ marginBottom: 60 }}>
+				<ScrollView style={{ marginBottom: 60, marginTop: 10 }}>
 					<VStack space={5}>
 						{feed.map((item, index) => (
 							<Post upvotePostAction={upvotePostAction} {...item} key={index} />
