@@ -28,8 +28,9 @@ import { useNavigation } from "@react-navigation/core";
 function PostPage({ username, date, text }) {
   return (
     <SafeAreaView>
-      <Box style={{ margin: 10 }} bg="primary.400" rounded="lg" shadow={3}>
+      <Box style={{ margin: 10 }} bg="primary.400" rounded="lg" shadow={8}>
         <VStack space={2} style={{ padding: 20 }}>
+        <TouchableOpacity>
           <HStack justifyContent="space-between">
             <Text style={{ fontSize: 20 }}>{username}</Text>
             <Text>{date}</Text>
@@ -40,6 +41,7 @@ function PostPage({ username, date, text }) {
               {text}
             </Text>
           </View>
+          </TouchableOpacity>
         </VStack>
       </Box>
     </SafeAreaView>
