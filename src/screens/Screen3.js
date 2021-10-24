@@ -171,9 +171,11 @@ function Screen3({
 						rounded="lg"
 					>
 						<VStack style={styles.HStack2}>
-							<Text style={{ fontSize: 20, fontWeight: "bold" }}>
-								{followers.length}
-							</Text>
+							{followers && (
+								<Text style={{ fontSize: 20, fontWeight: "bold" }}>
+									{followers.length}
+								</Text>
+							)}
 							<Text style={{ fontStyle: "italic" }}> Followers</Text>
 						</VStack>
 					</Box>
@@ -230,10 +232,14 @@ function Screen3({
 			</VStack>
 			<Divider style={{ marginTop: 5 }} color={colors.primary["500"]} />
 			<ScrollView style={{ marginBottom: 5 }}>
-				{mode === 0 &&
-					myPosts.map((item, index) => <Post {...item} key={index} />)}
-				{mode === 1 &&
-					upvotedPosts.map((item, index) => <Post {...item} key={index} />)}
+				<VStack space={4}>
+					{mode === 0 &&
+						myPosts &&
+						myPosts.map((item, index) => <Post {...item} key={index} />)}
+					{mode === 1 &&
+						upvotedPosts &&
+						upvotedPosts.map((item, index) => <Post {...item} key={index} />)}
+				</VStack>
 			</ScrollView>
 		</SafeAreaView>
 	)
@@ -241,7 +247,7 @@ function Screen3({
 
 const mapStateToProps = (state) => ({
 	user: state.user,
-	username: state.username,
+	username: state.user.username,
 	uid: state.user.uid,
 	avatar: state.user.avatar,
 	myPosts: state.myPosts,

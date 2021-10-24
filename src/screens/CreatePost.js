@@ -100,7 +100,7 @@ function CreatePost({ postAction, error, createPostAction }) {
 						}}
 					/>
 					<Heading style={[styles.contacts, { padding: 1 }]}>
-						Relevant Contacts
+						Contact Info
 					</Heading>
 
 					{dummyData.map((item, index) => (

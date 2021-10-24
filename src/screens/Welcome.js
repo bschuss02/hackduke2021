@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react"
 import { StyleSheet } from "react-native"
-import { NativeBaseProvider, View, Text, Button, HStack } from "native-base"
+import {
+	NativeBaseProvider,
+	View,
+	Text,
+	Button,
+	HStack,
+	Box,
+	VStack,
+	Heading,
+} from "native-base"
 import { useNavigation } from "@react-navigation/native"
 import { useSelector, shallowEqual } from "react-redux"
 
@@ -10,22 +19,44 @@ export default function Welcome() {
 
 	return (
 		<View style={styles.container}>
-			<HStack w={{ base: "75%", md: "25%" }} style={styles.buttonContainer}>
-				<Button
-					onPress={() => {
-						navigation.navigate("Login")
+			<VStack space={10}>
+				<Box
+					alignItems="center"
+					bg={{
+						linearGradient: {
+							colors: ["tertiary.300", "primary.500"],
+							start: [0, 0],
+							end: [1, 0],
+						},
+					}}
+					p={12}
+					rounded="lg"
+					_text={{
+						fontSize: "md",
+						fontWeight: "bold",
+						color: "white",
 					}}
 				>
-					Login
-				</Button>
-				<Button
-					onPress={() => {
-						navigation.navigate("Sign Up")
-					}}
-				>
-					Sign Up
-				</Button>
-			</HStack>
+					<Heading style={{ fontSize: 30, color: "white" }}>Grassroots</Heading>
+				</Box>
+
+				<HStack w={{ base: "75%", md: "25%" }} style={styles.buttonContainer}>
+					<Button
+						onPress={() => {
+							navigation.navigate("Login")
+						}}
+					>
+						Login
+					</Button>
+					<Button
+						onPress={() => {
+							navigation.navigate("Sign Up")
+						}}
+					>
+						Sign Up
+					</Button>
+				</HStack>
+			</VStack>
 		</View>
 	)
 }

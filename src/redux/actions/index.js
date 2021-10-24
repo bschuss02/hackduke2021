@@ -78,6 +78,8 @@ const loadFeed = async (userData) => {
 
 	const querySnapshots = await getQuerySnapshots(following)
 
+	following.pop()
+
 	let feed = []
 	querySnapshots.forEach((querySnapshot) => {
 		let posts = querySnapshot.docs.map((doc) => {
@@ -131,13 +133,16 @@ const loadUpvotedPosts = async (userData) => {
 const loadData = () => {
 	return async (dispatch, getState) => {
 		const userData = await getCurrentUserData()
-		const feed = await loadFeed(userData)
+		const feed = await loadFeed({ ...userData })
 		const myPosts = await loadMyPosts()
-		const upvotedPosts = await loadUpvotedPosts(userData)
+		const upvotedPosts = await loadUpvotedPosts({ ...userData })
 
-		const { upvotes } = myPosts.reduce((a, b) => {
-			return { upvotes: a.upvotes + b.upvotes }
-		})
+		let upvotes = 0
+		if (myPosts.length !== 0) {
+			upvotes = myPosts.reduce((a, b) => {
+				return { upvotes: a.upvotes + b.upvotes }
+			}).upvotes
+		}
 
 		dispatch({
 			type: "DONE_LOADING",
@@ -231,6 +236,8 @@ const followUser = (otherUid, otherUsername, otherAvatar) => {
 			.collection("users")
 			.doc(otherUid)
 			.update({ followers })
+
+		dispatch(loadData())
 	}
 }
 

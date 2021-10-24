@@ -114,6 +114,14 @@ function PostOnlyPage({ testingAction, route, createCommentAction }) {
 		contacts,
 		comments,
 	} = route.params
+	console.log(
+		"🚀 ~ file: PostOnlyPage.js ~ line 116 ~ PostOnlyPage ~ comments",
+		comments,
+	)
+	console.log(
+		"🚀 ~ file: PostOnlyPage.js ~ line 117 ~ PostOnlyPage ~ contacts",
+		contacts,
+	)
 	const { colors } = useTheme()
 	const navigation = useNavigation()
 
@@ -188,7 +196,7 @@ function PostOnlyPage({ testingAction, route, createCommentAction }) {
 									<TouchableOpacity>
 										<Icon as={Ionicons} name="arrow-up" />
 									</TouchableOpacity>
-									<Text>5</Text>
+									<Text>{upvotes}</Text>
 								</HStack>
 								<Text>{new Date(timestamp).toLocaleDateString()}</Text>
 							</HStack>
