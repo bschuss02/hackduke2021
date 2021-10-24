@@ -5,6 +5,7 @@ const initialState = {
 	feed: [],
 	upvotedPosts: [],
 	upvotes: 0,
+	searchedUsers: [],
 }
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
@@ -20,7 +21,6 @@ function rootReducer(state = initialState, action) {
 		}
 
 		case "DONE_LOADING": {
-			// console.log("done loading user feed", action.feed)
 			return {
 				...state,
 				user: action.userData,
@@ -35,6 +35,11 @@ function rootReducer(state = initialState, action) {
 		case "CLEAR_DONE_LOADING": {
 			return { ...state, isDoneLoading: false }
 		}
+
+		case "SEARCH_USERS_SUCCESS": {
+			return { ...state, searchedUsers: action.data }
+		}
+
 		default: {
 			return { ...state }
 		}
