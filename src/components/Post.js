@@ -18,9 +18,10 @@ import {
 	useTheme,
 	Icon,
 	Divider,
+	Avatar,
 } from "native-base"
 
-import { Ionicons, Fontisto } from "@expo/vector-icons"
+import { Ionicons, Fontisto, FontAwesome } from "@expo/vector-icons"
 
 export default function Post({
 	title,
@@ -31,30 +32,19 @@ export default function Post({
 	upvotePostAction,
 	uid,
 	postId,
+	avatar,
 }) {
 	const { colors } = useTheme()
 	return (
 		<SafeAreaView style={{ width: Dimensions.get("window").width }}>
-			<Box style={{ margin: 10 }} shadow={8}>
-				<HStack space={1} alignItems="center">
-					<VStack justifyContent="flex-start" alignItems="center">
-						<TouchableOpacity
-							onPress={() => {
-								upvotePostAction(uid, postId, 1)
-							}}
-						>
-							<Icon as={Ionicons} name="arrow-up" />
-						</TouchableOpacity>
-						<Text>{upvotes}</Text>
-						<TouchableOpacity
-							onPress={() => {
-								upvotePostAction(uid, postId, -1)
-							}}
-						>
-							<Icon as={Ionicons} name="arrow-down" />
-						</TouchableOpacity>
-					</VStack>
-					<VStack space={0}>
+			<Box shadow={8}>
+				<VStack space={1} alignItems="center">
+					<VStack
+						space={0}
+						style={{
+							width: Dimensions.get("window").width * 0.96,
+						}}
+					>
 						<TouchableOpacity>
 							<VStack
 								space={4}
@@ -62,9 +52,12 @@ export default function Post({
 								rounded="5"
 								bg={colors.primary["200"]}
 							>
-								<HStack justifyContent="space-between">
-									<Text style={{ fontSize: 16 }}>{title}</Text>
-									<Text style={{ fontSize: 10 }}>{username}</Text>
+								<HStack style={{ flex: 1 }}>
+									<Avatar size={10} source={{ uri: avatar }} />
+									<VStack style={{ marginLeft: 10 }}>
+										<Text style={{ fontSize: 10 }}>{username}</Text>
+										<Text style={{ fontSize: 16 }}>{title}</Text>
+									</VStack>
 								</HStack>
 								<Divider
 									style={{ backgroundColor: colors.gray["400"], height: 0.5 }}
@@ -74,24 +67,33 @@ export default function Post({
 								</Text>
 							</VStack>
 						</TouchableOpacity>
-						<HStack justifyContent="space-between">
-							<TouchableOpacity>
-								<Text
-									style={{
-										textDecorationLine: "underline",
-										textDecorationColor: colors.primary["500"],
+						<HStack justifyContent="space-between" alignItems="center">
+							<HStack alignItems="center">
+								<TouchableOpacity
+									style={{ padding: 5 }}
+									onPress={() => {
+										upvotePostAction(uid, postId, 1)
 									}}
 								>
-									Comments
-								</Text>
+									<Icon as={Ionicons} name="arrow-up" />
+								</TouchableOpacity>
+								<Text>{upvotes}</Text>
+								<TouchableOpacity
+									style={{ padding: 5 }}
+									onPress={() => {
+										upvotePostAction(uid, postId, -1)
+									}}
+								>
+									<Icon as={Ionicons} name="arrow-down" />
+								</TouchableOpacity>
+							</HStack>
+							<TouchableOpacity>
+								<Icon as={FontAwesome} name="comments-o" />
 							</TouchableOpacity>
 							<Text>{`${timeSince(timestamp)} ago`}</Text>
 						</HStack>
 					</VStack>
-					{/* <VStack alignItems="center">
-						<Text style={{ width: 42 }}>{date}</Text>
-					</VStack> */}
-				</HStack>
+				</VStack>
 			</Box>
 		</SafeAreaView>
 	)

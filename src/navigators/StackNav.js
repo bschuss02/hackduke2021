@@ -9,6 +9,7 @@ import Loading from "../screens/Loading"
 import TabNav from "./TabNav"
 import Settings from "../screens/Settings"
 import { useTheme } from "styled-components"
+import CreatePost from "../screens/CreatePost"
 
 const Stack = createStackNavigator()
 
@@ -37,6 +38,7 @@ export default function StackNav() {
 				options={{ headerShown: false }}
 			/>
 			<Stack.Screen name="Settings" component={Settings} />
+			<Stack.Screen name="Create Post" component={CreatePost} />
 			<Stack.Screen
 				name="TabNav"
 				component={TabNav}
