@@ -1,14 +1,29 @@
 import React, { useState, useEffect } from "react"
 import { StyleSheet } from "react-native"
 import { NativeBaseProvider, View, Text, Button } from "native-base"
+import { signout } from "../redux/actions"
+import { connect } from "react-redux"
 
-export default function Settings() {
+function Settings({ signoutAction }) {
 	return (
 		<View style={styles.container}>
-			<Text>Settings</Text>
+			<Button
+				onPress={() => {
+					signoutAction()
+				}}
+			>
+				Sign Out
+			</Button>
 		</View>
 	)
 }
+
+const mapStateToProps = (state) => ({})
+const mapDispatchToProps = (dispatch) => ({
+	signoutAction: () => dispatch(signout()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings)
 
 const styles = StyleSheet.create({
 	container: {

@@ -4,6 +4,8 @@ import {
 	SafeAreaView,
 	TouchableOpacity,
 	ScrollView,
+	View,
+	Dimensions,
 } from "react-native"
 import {
 	NativeBaseProvider,
@@ -14,6 +16,8 @@ import {
 	Box,
 	VStack,
 	Divider,
+	Button,
+	Icon,
 } from "native-base"
 import { signout } from "../redux/actions"
 import Post from "../components/Post"
@@ -23,53 +27,54 @@ import { useNavigation } from "@react-navigation/core"
 import { useTheme } from "styled-components"
 import { margin } from "styled-system"
 
-function Screen3({ signoutAction }) {
-	const dummyData = [
-		{
-			title: "title1",
-			username: "username1",
-			text: "text1",
-			upvotes: -4,
-			date: 1635017815494,
-		},
-		{
-			title: "title2",
-			username: "username2",
-			text:
-				"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
-			upvotes: 2,
-			date: 1635017815494,
-		},
-		{
-			title: "title3",
-			username: "username3",
-			text: "text3",
-			upvotes: 24,
-			date: 1635017815494,
-		},
-		{
-			title: "title1",
-			username: "username1",
-			text: "text1",
-			upvotes: -4,
-			date: "10/23/2021",
-		},
-		{
-			title: "title2",
-			username: "username2",
-			text:
-				"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
-			upvotes: 2,
-			date: "10/24/2021",
-		},
-		{
-			title: "title3",
-			username: "username3",
-			text: "text3",
-			upvotes: 24,
-			date: "10/21/2021",
-		},
-	]
+const dummyData = [
+	{
+		title: "title1",
+		username: "username1",
+		text: "text1",
+		upvotes: -4,
+		date: 1635017815494,
+	},
+	{
+		title: "title2",
+		username: "username2",
+		text:
+			"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
+		upvotes: 2,
+		date: 1635017815494,
+	},
+	{
+		title: "title3",
+		username: "username3",
+		text: "text3",
+		upvotes: 24,
+		date: 1635017815494,
+	},
+	{
+		title: "title1",
+		username: "username1",
+		text: "text1",
+		upvotes: -4,
+		date: "10/23/2021",
+	},
+	{
+		title: "title2",
+		username: "username2",
+		text:
+			"text2sodfjgnabsjrbgaojribgaiojrebgiuerbgiuwerbgiaewrgihjergbaoeirjbgaojrsfbgajosfbgoajsfbgajksfgbajkbfskjgbasfkjb",
+		upvotes: 2,
+		date: "10/24/2021",
+	},
+	{
+		title: "title3",
+		username: "username3",
+		text: "text3",
+		upvotes: 24,
+		date: "10/21/2021",
+	},
+]
+
+function Screen3({ signoutAction, user, username, followUserAction }) {
 	const navigation = useNavigation()
 	const [follow, setFollow] = useState(false)
 	const [mode, setMode] = useState(0)
@@ -85,72 +90,119 @@ function Screen3({ signoutAction }) {
 					uri:
 						"https://static.wikia.nocookie.net/avatar/images/7/79/Pilot_-_Aang.png/revision/latest/top-crop/width/360/height/360?cb=20120311133235",
 				}}
-			></Avatar>
-			<HStack style={styles.HackStack1}>
+			/>
+
+			<VStack space={1.5} alignItems="center">
 				<Box
 					rounded="lg"
 					overflow="hidden"
-					bg={colors.tertiary["300"]}
+					// bg={colors.tertiary["300"]}
 					borderColor="coolGray.200"
 				>
-					<Text>Username</Text>
+					<Heading marginTop={2}>{user.username}</Heading>
 				</Box>
-				<TouchableOpacity onPress={() => setFollow(!follow)}>
-					<Box bg={colors.tertiary["300"]} rounded="lg">
-						<Text>{follow ? "Follow" : "Unfollow"}</Text>
-					</Box>
+				<TouchableOpacity
+					onPress={() => {
+						navigation.navigate("Settings")
+					}}
+				>
+					<Icon as={Ionicons} color="primary.500" name="settings" />
 				</TouchableOpacity>
-			</HStack>
-			<HStack style={styles.Hstack2entire}>
-				<Box bg={colors.tertiary["300"]} rounded="lg">
-					<VStack style={styles.HStack2}>
-						<Text>383838</Text>
 
-						<Text> Following</Text>
-					</VStack>
-				</Box>
-				<Box bg={colors.tertiary["300"]} rounded="lg">
-					<VStack style={styles.HStack2}>
-						<Text>383838</Text>
-						<Text> Follwers</Text>
-					</VStack>
-				</Box>
-				<Box bg={colors.tertiary["300"]} rounded="lg">
-					<VStack style={styles.HStack2}>
-						<Text>383838</Text>
-						<Text> Upvotes</Text>
-					</VStack>
-				</Box>
-			</HStack>
-			<HStack style={{ justifyContent: "space-between", width: "50%" }}>
-				<TouchableOpacity
-					onPress={() => {
-						setMode(0)
-					}}
-				>
-					<Text
-						style={styles.Headers}
-						underline={mode === 0}
-						color={mode === 0 ? colors.primary["500"] : colors.gray["400"]}
+				{/* {
+					<Button
+						onPress={() => {
+							followUserAction()
+						}}
+						marginTop={1}
 					>
-						Posts
-					</Text>
-				</TouchableOpacity>
-				<Text>|</Text>
-				<TouchableOpacity
-					onPress={() => {
-						setMode(1)
+						{follow ? "Follow" : "Unfollow"}
+					</Button>
+				} */}
+				{/* <TouchableOpacity onPress={() => setFollow(!follow)}>
+					<Box bg={colors.tertiary["300"]} rounded="lg">
+						<Text></Text>
+					</Box>
+				</TouchableOpacity> */}
+
+				{/* <Divider color="red" height={5} /> */}
+				<View
+					style={{
+						borderColor: "gray",
+						borderWidth: 0.3,
+						width: Dimensions.get("window").width * 0.97,
+						borderRadius: 50,
+						marginVertical: 10,
 					}}
-				>
-					<Text
-						style={styles.Headers}
-						underline={mode === 1}
-						color={mode === 1 ? colors.primary["500"] : colors.gray["400"]}
+				/>
+				<HStack style={styles.Hstack2entire}>
+					<Box
+						//  bg={colors.tertiary["300"]}
+						rounded="lg"
 					>
-						Upvoted
-					</Text>
-				</TouchableOpacity>
-			</HStack>
+						<VStack style={styles.HStack2}>
+							<Text style={{ fontSize: 20, fontWeight: "bold" }}>38</Text>
+							<Text style={{ fontStyle: "italic" }}> Following</Text>
+						</VStack>
+					</Box>
+					<Box
+						// bg={colors.tertiary["300"]}
+						rounded="lg"
+					>
+						<VStack style={styles.HStack2}>
+							<Text style={{ fontSize: 20, fontWeight: "bold" }}>338</Text>
+							<Text style={{ fontStyle: "italic" }}> Follwers</Text>
+						</VStack>
+					</Box>
+					<Box
+						//  bg={colors.tertiary["300"]}
+						rounded="lg"
+					>
+						<VStack style={styles.HStack2}>
+							<Text style={{ fontSize: 20, fontWeight: "bold" }}>388</Text>
+							<Text style={{ fontStyle: "italic" }}> Upvotes</Text>
+						</VStack>
+					</Box>
+				</HStack>
+				<View
+					style={{
+						borderColor: "gray",
+						borderWidth: 0.3,
+						width: Dimensions.get("window").width * 0.97,
+						borderRadius: 50,
+						marginBottom: 15,
+					}}
+				/>
+				<HStack style={{ justifyContent: "space-between", width: "50%" }}>
+					<TouchableOpacity
+						onPress={() => {
+							setMode(0)
+						}}
+					>
+						<Text
+							style={styles.Headers}
+							underline={mode === 0}
+							color={mode === 0 ? colors.primary["500"] : colors.gray["400"]}
+						>
+							Posts
+						</Text>
+					</TouchableOpacity>
+					<Text>|</Text>
+					<TouchableOpacity
+						onPress={() => {
+							setMode(1)
+						}}
+					>
+						<Text
+							style={styles.Headers}
+							underline={mode === 1}
+							color={mode === 1 ? colors.primary["500"] : colors.gray["400"]}
+						>
+							Upvoted
+						</Text>
+					</TouchableOpacity>
+				</HStack>
+			</VStack>
 			<Divider style={{ marginTop: 5 }} color={colors.primary["500"]} />
 			<ScrollView style={{ marginBottom: 5 }}>
 				{dummyData.map((item, index) => (
@@ -163,6 +215,9 @@ function Screen3({ signoutAction }) {
 
 const mapStateToProps = (state) => ({
 	user: state.user,
+	username: state.username,
+	uid: state.user.uid,
+	avatar: state.user.avatar,
 })
 
 const mapDispatchToProps = (dispatch) => ({
