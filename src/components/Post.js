@@ -23,8 +23,9 @@ import {
 
 import { Ionicons, Fontisto, FontAwesome } from "@expo/vector-icons"
 import { useNavigation } from "@react-navigation/native"
+import { connect } from "react-redux"
 
-export default function Post({
+function Post({
 	title,
 	username,
 	text,
@@ -36,9 +37,11 @@ export default function Post({
 	avatar,
 	contacts,
 	comments,
+	upvotedPosts,
 }) {
 	const { colors } = useTheme()
 	const navigation = useNavigation()
+
 	return (
 		<SafeAreaView style={{ width: Dimensions.get("window").width }}>
 			<Box shadow={8}>
@@ -75,13 +78,25 @@ export default function Post({
 									<Avatar size={10} source={{ uri: avatar }} />
 									<VStack style={{ marginLeft: 10 }}>
 										<Text style={{ fontSize: 10 }}>{username}</Text>
-										<Text style={{ fontSize: 16 }}>{title}</Text>
+										<Text
+											style={{
+												fontSize: 16,
+												width: Dimensions.get("window").width * 0.8,
+											}}
+										>
+											{title}
+										</Text>
 									</VStack>
 								</HStack>
 								<Divider
 									style={{ backgroundColor: colors.gray["400"], height: 0.5 }}
 								/>
-								<Text style={{ width: Dimensions.get("window").width * 0.78 }}>
+								<Text
+									style={{
+										width: Dimensions.get("window").width * 0.9,
+										flexWrap: "wrap",
+									}}
+								>
 									{text}
 								</Text>
 							</VStack>
@@ -106,9 +121,9 @@ export default function Post({
 									<Icon as={Ionicons} name="arrow-down" />
 								</TouchableOpacity> */}
 							</HStack>
-							<TouchableOpacity>
+							{/* <TouchableOpacity>
 								<Icon as={FontAwesome} name="comments-o" />
-							</TouchableOpacity>
+							</TouchableOpacity> */}
 							<Text>{`${timeSince(timestamp)} ago`}</Text>
 						</HStack>
 					</VStack>
@@ -117,6 +132,13 @@ export default function Post({
 		</SafeAreaView>
 	)
 }
+
+const mapStateToProps = (state) => ({
+	upvotedPosts: state.upvotedPosts,
+})
+const mapDispatchToProps = (dispatch) => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post)
 
 function timeSince(date) {
 	var seconds = Math.floor((new Date() - date) / 1000)

@@ -126,16 +126,19 @@ const getQuerySnapshots2 = async (upvotedPosts) => {
 const loadUpvotedPosts = async (userData) => {
 	const { upvotedPosts } = userData
 	const querySnapshots = await getQuerySnapshots2(upvotedPosts)
-	const posts = querySnapshots.map((snapshot) => snapshot.data())
+	const posts = querySnapshots.map((snapshot) => ({
+		postId: snapshot.id,
+		...snapshot.data(),
+	}))
 	return posts
 }
 
 const loadData = () => {
 	return async (dispatch, getState) => {
 		const userData = await getCurrentUserData()
-		const feed = await loadFeed({ ...userData })
+		const feed = await loadFeed(userData)
 		const myPosts = await loadMyPosts()
-		const upvotedPosts = await loadUpvotedPosts({ ...userData })
+		const upvotedPosts = await loadUpvotedPosts(userData)
 
 		let upvotes = 0
 		if (myPosts.length !== 0) {

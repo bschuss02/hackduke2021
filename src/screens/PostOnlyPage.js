@@ -114,14 +114,6 @@ function PostOnlyPage({ testingAction, route, createCommentAction }) {
 		contacts,
 		comments,
 	} = route.params
-	console.log(
-		"🚀 ~ file: PostOnlyPage.js ~ line 116 ~ PostOnlyPage ~ comments",
-		comments,
-	)
-	console.log(
-		"🚀 ~ file: PostOnlyPage.js ~ line 117 ~ PostOnlyPage ~ contacts",
-		contacts,
-	)
 	const { colors } = useTheme()
 	const navigation = useNavigation()
 

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "hackduke-app",
-    "slug": "hackduke-app",
+    "name": "grassroots",
+    "slug": "grassroots",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,7 +10,6 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff",
       "sdkVersion": "43.0.0"
-
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bschuss02.grassroots"
     },
     "android": {
       "adaptiveIcon": {

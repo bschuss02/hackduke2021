@@ -120,10 +120,6 @@ const dummyDataUsernames = [
 ]
 
 function Screen2({ user, searchedUsers, searchForUserAction, error }) {
-	console.log(
-		"🚀 ~ file: Screen2.js ~ line 49 ~ Screen2 ~ searchedUsers",
-		searchedUsers,
-	)
 	const toast = useToast()
 	const dispatch = useDispatch()
 	useEffect(() => {
