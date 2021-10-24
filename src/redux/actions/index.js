@@ -22,6 +22,7 @@ const signup = (email, username, password) => {
 				username,
 				followers: [],
 				following: [],
+				upvotedPosts: [],
 				avatar,
 			}
 			const currentUid = firebase.auth().currentUser.uid
@@ -182,8 +183,18 @@ const followUser = (otherUid, otherUsername, otherAvatar) => {
 	}
 }
 
+const getUserData = async () => {
+	const currentUid = firebase.auth().currentUser.uid
+	const querySnapshot = await db
+		.collection("users")
+		.doc(currentUid)
+		.get()
+	return querySnapshot.data()
+}
+
 const upvotePost = (uid, postId, downvote) => {
 	return async (dispatch, getState) => {
+		const currentUid = firebase.auth().currentUser.uid
 		// console.log("🚀 ~ file: index.js ~ line 187 ~ upvotePost ~ uid", uid)
 		// console.log("🚀 ~ file: index.js ~ line 187 ~ upvotePost ~ postId", postId)
 		// console.log(
@@ -206,6 +217,18 @@ const upvotePost = (uid, postId, downvote) => {
 			.collection("posts")
 			.doc(postId)
 			.update({ upvotes: newTotal })
+
+		if (downvote === 1) {
+			const record = { uid, postId }
+			const userData = await getUserData()
+			let { upvotedPosts } = userData
+			upvotedPosts = [...upvotedPosts, record]
+
+			await db
+				.collection("users")
+				.doc(currentUid)
+				.update({ upvotedPosts })
+		}
 
 		dispatch(loadData())
 	}
