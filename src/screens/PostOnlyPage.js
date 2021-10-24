@@ -34,6 +34,7 @@ import { Header } from "react-native/Libraries/NewAppScreen"
 import { useTheme } from "styled-components"
 import { Ionicons, AntDesign } from "@expo/vector-icons"
 import { createComment } from "../redux/actions"
+import { useNavigation } from "@react-navigation/native"
 
 const dummyData = [
 	{
@@ -100,12 +101,7 @@ const dummyData = [
 	},
 ]
 
-function PostOnlyPage({
-	testingAction,
-	route,
-	navigation,
-	createCommentAction,
-}) {
+function PostOnlyPage({ testingAction, route, createCommentAction }) {
 	const {
 		title,
 		username,
@@ -119,6 +115,15 @@ function PostOnlyPage({
 		comments,
 	} = route.params
 	const { colors } = useTheme()
+	const navigation = useNavigation()
+
+	useEffect(() => {
+		let s = `${username}: ${title}`
+		if (s.length > 25) {
+			s = s.slice(0, 25) + "..."
+		}
+		navigation.setOptions({ title: s })
+	})
 
 	const [commentInput, setCommentInput] = React.useState("")
 
@@ -206,8 +211,7 @@ function PostOnlyPage({
 					}}
 				/>
 				<KeyboardAvoidingView
-					// behavior={Platform.OS === "ios" ? "padding" : "height"}
-					behavior="padding"
+					behavior={Platform.OS === "ios" ? "padding" : "height"}
 				>
 					<TextArea
 						style={{
@@ -222,7 +226,6 @@ function PostOnlyPage({
 					/>
 					<Button
 						onPress={() => {
-							console.log("pressed")
 							createCommentAction(commentInput, postId, uid)
 							navigation.navigate("TabNav")
 						}}

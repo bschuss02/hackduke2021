@@ -286,7 +286,6 @@ const upvotePost = (uid, postId, downvote) => {
 const createComment = (text, postId, uid) => {
 	return async (dispatch, getState) => {
 		const { avatar, username } = getState().user
-		console.log("🚀 ~ file: index.js ~ line 289 ~ return ~ avatar", avatar)
 		const newComment = {
 			text,
 			postId,
@@ -315,6 +314,25 @@ const createComment = (text, postId, uid) => {
 	}
 }
 
+const searchForUser = (username) => {
+	return async (dispatch, getState) => {
+		const querySnapshot = await db
+			.collection("users")
+			.where("username", "==", username)
+			.get()
+
+		if (querySnapshot.empty) {
+			dispatch({ type: "SET_ERROR", error: "Nobody has that username" })
+		} else {
+			const data = querySnapshot.docs.map((doc) => ({
+				...doc.data(),
+				uid: doc.id,
+			}))
+			dispatch({ type: "SEARCH_USERS_SUCCESS", data })
+		}
+	}
+}
+
 export {
 	signup,
 	signout,
@@ -325,4 +343,5 @@ export {
 	followUser,
 	upvotePost,
 	createComment,
+	searchForUser,
 }

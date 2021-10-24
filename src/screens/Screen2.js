@@ -14,11 +14,13 @@ import {
 	useTheme,
 	List,
 	Heading,
+	useToast,
 } from "native-base"
 import { connect } from "react-redux"
 import { Ionicons } from "@expo/vector-icons"
 import UserItem from "../components/UserItem"
-import { Use } from "react-native-svg"
+import { searchForUser } from "../redux/actions"
+import { useDispatch } from "react-redux"
 
 const dummyDataUsernames = [
 	{
@@ -43,15 +45,32 @@ const dummyDataUsernames = [
 	},
 ]
 
-function Screen2({ user }) {
+function Screen2({ user, searchedUsers, searchForUserAction, error }) {
+	const toast = useToast()
+	const dispatch = useDispatch()
+	useEffect(() => {
+		if (error) {
+			toast.show({
+				description: error,
+				backgroundColor: "error.500",
+			})
+			dispatch({ type: "CLEAR_ERROR" })
+		}
+	})
+
 	const { username, email } = user
 	const { colors } = useTheme()
+	const [searchInput, setSearchInput] = useState("")
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<ScrollView>
 				<Box alignItems="center">
 					<VStack style={{ margin: 35 }} space={3}>
 						<Input
+							value={searchInput}
+							onChangeText={(e) => {
+								setSearchInput(e)
+							}}
 							placeholder="Search for people to follow"
 							borderRadius={20}
 							borderWidth={2}
@@ -63,17 +82,28 @@ function Screen2({ user }) {
 									name="search"
 								/>
 							}
-							InputRightElement={<Button style={{ margin: 5 }}>Search</Button>}
+							InputRightElement={
+								<Button
+									style={{ margin: 5 }}
+									onPress={() => {
+										searchForUserAction(searchInput)
+									}}
+								>
+									Search
+								</Button>
+							}
 							autoCorrect={false}
 							autoCapitalize="none"
 						/>
 
 						<VStack space={10}>
-							<VStack space={4} alignItems="center">
-								{dummyDataUsernames.map((item, index) => (
-									<UserItem {...item} key={index} />
-								))}
-							</VStack>
+							{searchedUsers.length !== 0 && (
+								<VStack space={4} alignItems="center">
+									{searchedUsers.map((item, index) => (
+										<UserItem {...item} key={index} />
+									))}
+								</VStack>
+							)}
 
 							<VStack space={4} alignItems="center">
 								<Heading>Suggested</Heading>
@@ -91,8 +121,12 @@ function Screen2({ user }) {
 
 const mapStateToProps = (state) => ({
 	user: state.user,
+	searchedUsers: state.searchedUsers,
+	error: state.error,
 })
-const mapDispatchToProps = (dispatch) => ({})
+const mapDispatchToProps = (dispatch) => ({
+	searchForUserAction: (username) => dispatch(searchForUser(username)),
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Screen2)
 

@@ -84,12 +84,19 @@ function Screen3({
 	followers,
 	following,
 	upvotes,
+	isSomeoneElse,
+	avatar,
+	params,
 }) {
 	const navigation = useNavigation()
 	const [follow, setFollow] = useState(false)
 	const [mode, setMode] = useState(0)
-
 	const { colors } = useTheme()
+
+	if (isSomeoneElse) {
+		username = params.username
+		avatar = params.avatar
+	}
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -109,7 +116,7 @@ function Screen3({
 					// bg={colors.tertiary["300"]}
 					borderColor="coolGray.200"
 				>
-					<Heading marginTop={2}>{user.username}</Heading>
+					<Heading marginTop={2}>{username}</Heading>
 				</Box>
 				<TouchableOpacity
 					onPress={() => {
@@ -151,9 +158,11 @@ function Screen3({
 						rounded="lg"
 					>
 						<VStack style={styles.HStack2}>
-							<Text style={{ fontSize: 20, fontWeight: "bold" }}>
-								{following.length}
-							</Text>
+							{following && (
+								<Text style={{ fontSize: 20, fontWeight: "bold" }}>
+									{following.length}
+								</Text>
+							)}
 							<Text style={{ fontStyle: "italic" }}> Following</Text>
 						</VStack>
 					</Box>
