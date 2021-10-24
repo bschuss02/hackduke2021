@@ -203,6 +203,11 @@ export default function CreatePost({postAction, error}) {
                     </TouchableOpacity>
                 </View>
 
+                {/* data for posts: 
+                    title stored in postTitle
+                    description stored in postDescription
+                    all contact information stored in dummyData object array */}
+                
             </Stack>
         </KeyboardAvoidingView>
         </ScrollView>
