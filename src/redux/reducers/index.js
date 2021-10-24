@@ -21,6 +21,11 @@ function rootReducer(state = initialState, action) {
 		}
 
 		case "DONE_LOADING": {
+			action.userData
+			console.log(
+				"🚀 ~ file: index.js ~ line 25 ~ rootReducer ~ 	action.userData",
+				action.userData,
+			)
 			return {
 				...state,
 				user: action.userData,

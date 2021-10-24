@@ -161,7 +161,11 @@ function timeSince(date) {
 		return returnString
 	}
 
-	return Math.floor(seconds) + " seconds"
+	let finalString = Math.floor(seconds) + " seconds"
+	if (Math.floor(seconds) === 1) {
+		finalString = finalString.replace("ds", "d")
+	}
+	return finalString
 }
 var aDay = 24 * 60 * 60 * 1000
 

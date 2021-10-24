@@ -37,7 +37,7 @@ function Contact({ icon, link, description, platform, info, text }) {
 	}
 
 	const linkLookup = {
-		twitter: "https://twitter.com/",
+		twitter: "https://twitter.com/" + info,
 		insta: "https://instagram.com/" + info,
 		facebook: "https://www.facebook.com/" + info,
 		phone: "tel:+" + info,
