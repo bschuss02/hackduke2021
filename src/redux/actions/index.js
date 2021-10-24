@@ -135,7 +135,18 @@ const loadData = () => {
 		const myPosts = await loadMyPosts()
 		const upvotedPosts = await loadUpvotedPosts(userData)
 
-		dispatch({ type: "DONE_LOADING", userData, feed, myPosts, upvotedPosts })
+		const { upvotes } = myPosts.reduce((a, b) => {
+			return { upvotes: a.upvotes + b.upvotes }
+		})
+
+		dispatch({
+			type: "DONE_LOADING",
+			userData,
+			feed,
+			myPosts,
+			upvotedPosts,
+			upvotes,
+		})
 	}
 }
 
@@ -235,12 +246,6 @@ const getUserData = async () => {
 const upvotePost = (uid, postId, downvote) => {
 	return async (dispatch, getState) => {
 		const currentUid = firebase.auth().currentUser.uid
-		// console.log("🚀 ~ file: index.js ~ line 187 ~ upvotePost ~ uid", uid)
-		// console.log("🚀 ~ file: index.js ~ line 187 ~ upvotePost ~ postId", postId)
-		// console.log(
-		// 	"🚀 ~ file: index.js ~ line 187 ~ upvotePost ~ downvote",
-		// 	downvote,
-		// )
 		const querySnapshot = await db
 			.collection("users")
 			.doc(uid)

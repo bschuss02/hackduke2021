@@ -3,6 +3,8 @@ const initialState = {
 	error: "",
 	user: {},
 	feed: [],
+	upvotedPosts: [],
+	upvotes: 0,
 }
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
@@ -26,6 +28,7 @@ function rootReducer(state = initialState, action) {
 				feed: action.feed,
 				myPosts: action.myPosts,
 				upvotedPosts: action.upvotedPosts,
+				upvotes: action.upvotes,
 			}
 		}
 

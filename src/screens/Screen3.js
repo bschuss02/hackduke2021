@@ -81,11 +81,14 @@ function Screen3({
 	followUserAction,
 	myPosts,
 	upvotedPosts,
+	followers,
+	following,
+	upvotes,
 }) {
 	const navigation = useNavigation()
 	const [follow, setFollow] = useState(false)
 	const [mode, setMode] = useState(0)
-	console.log(follow)
+
 	const { colors } = useTheme()
 
 	return (
@@ -148,7 +151,9 @@ function Screen3({
 						rounded="lg"
 					>
 						<VStack style={styles.HStack2}>
-							<Text style={{ fontSize: 20, fontWeight: "bold" }}>38</Text>
+							<Text style={{ fontSize: 20, fontWeight: "bold" }}>
+								{following.length}
+							</Text>
 							<Text style={{ fontStyle: "italic" }}> Following</Text>
 						</VStack>
 					</Box>
@@ -157,8 +162,10 @@ function Screen3({
 						rounded="lg"
 					>
 						<VStack style={styles.HStack2}>
-							<Text style={{ fontSize: 20, fontWeight: "bold" }}>338</Text>
-							<Text style={{ fontStyle: "italic" }}> Follwers</Text>
+							<Text style={{ fontSize: 20, fontWeight: "bold" }}>
+								{followers.length}
+							</Text>
+							<Text style={{ fontStyle: "italic" }}> Followers</Text>
 						</VStack>
 					</Box>
 					<Box
@@ -166,7 +173,9 @@ function Screen3({
 						rounded="lg"
 					>
 						<VStack style={styles.HStack2}>
-							<Text style={{ fontSize: 20, fontWeight: "bold" }}>388</Text>
+							<Text style={{ fontSize: 20, fontWeight: "bold" }}>
+								{upvotes}
+							</Text>
 							<Text style={{ fontStyle: "italic" }}> Upvotes</Text>
 						</VStack>
 					</Box>
@@ -228,6 +237,9 @@ const mapStateToProps = (state) => ({
 	avatar: state.user.avatar,
 	myPosts: state.myPosts,
 	upvotedPosts: state.upvotedPosts,
+	followers: state.user.followers,
+	following: state.user.following,
+	upvotes: state.upvotes,
 })
 
 const mapDispatchToProps = (dispatch) => ({
